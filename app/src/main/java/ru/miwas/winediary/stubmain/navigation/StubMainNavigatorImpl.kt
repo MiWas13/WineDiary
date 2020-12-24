@@ -1,0 +1,17 @@
+package ru.miwas.winediary.stubmain.navigation
+
+import ru.miwas.winediary.createrecord.CreateRecordFragment
+import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
+
+class StubMainNavigatorImpl(
+    private val fragmentNavigationHelper: FragmentNavigationHelper
+) : StubMainNavigator {
+
+    override fun startAdding() {
+        fragmentNavigationHelper.addFragment(CreateRecordFragment())
+    }
+
+    override fun clear() {
+        fragmentNavigationHelper.clearHelper()
+    }
+}

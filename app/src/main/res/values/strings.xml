@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">WineDiary</string>
+
+    <string name="stub_main_text">Здесь будет список твоего любимого вина. \nДобавь что-нибудь!</string>
+    <string name="create_record_next_button_text">Далее</string>
+    <string name="create_record_ready_button_text">Готово</string>
+    <string name="create_record_wine_name">Название вина</string>
+    <string name="create_record_country_creator">Страна производитель</string>
+    <string name="create_record_year">Год</string>
+    <string name="create_record_alcohol_percentage">% Алкоголя</string>
+    <string name="create_record_color">Цвет</string>
+    <string name="create_record_price">Цена</string>
+    <string name="create_record_grape_varieties">Сорт(а) винограда</string>
+    <string name="create_record_smell">Запах</string>
+    <string name="create_record_taste">Вкус</string>
+    <string name="create_record_combination">Сочетается с</string>
+    <string name="create_record_notes">Дополнительные заметки</string>
+    <string name="create_record_smell_rating">Оценка запаха</string>
+    <string name="create_record_taste_rating">Оценка вкуса</string>
+    <string name="create_record_total_rating">Общая оценка</string>
+
+    <string name="create_record_step_first">Шаг 1 из 3</string>
+    <string name="create_record_step_second">Шаг 2 из 3</string>
+    <string name="create_record_step_third">Шаг 3 из 3</string>
+
+    <string name="create_record_wine_added">Вино добавлено в вашу коллекцию!</string>
+</resources>
