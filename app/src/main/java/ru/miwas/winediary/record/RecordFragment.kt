@@ -25,6 +25,7 @@ class RecordFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prepareView()
+        observeViewModel()
         viewModel.startProcesses()
     }
 
@@ -33,6 +34,10 @@ class RecordFragment : BaseFragment() {
             fragmentNavigationHelper.configHelper(it, R.id.mainContainer)
         }
         viewModel = RecordViewModelImpl(RecordNavigatorImpl(fragmentNavigationHelper))
+    }
+
+    override fun observeViewModel() {
+
     }
 
     override fun prepareView() {

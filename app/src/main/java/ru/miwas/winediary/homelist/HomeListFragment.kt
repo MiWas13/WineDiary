@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.home_list_fragment.*
 import ru.miwas.winediary.R
@@ -17,6 +18,7 @@ class HomeListFragment : BaseFragment() {
 
     private lateinit var viewModel: HomeListViewModel
     private val fragmentNavigationHelper: FragmentNavigationHelper = FragmentNavigationHelperImpl()
+    private val homeListAdapter = HomeListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,7 @@ class HomeListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prepareView()
+        observeViewModel()
         viewModel.startProcesses()
     }
 
@@ -42,24 +45,34 @@ class HomeListFragment : BaseFragment() {
     override fun prepareView() {
         homeListRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = HomeListAdapter().apply {
-                setItems(generateFakeItems())
-            }
+            adapter = homeListAdapter
         }
     }
 
-    fun generateFakeItems() = arrayListOf(
-            WineItem(
-                name = "Каберне la France",
-                rateTotal = 2
-            ),
-            WineItem(
-                name = "Шато Тамань",
-                rateTotal = 4
-            ),
-            WineItem(
-                name = "Frederic Monplaisir Bordeaux",
-                rateTotal = 5
-            )
+    override fun observeViewModel() {
+        viewModel.wineItems.observe(
+            viewLifecycleOwner,
+            Observer {
+                homeListAdapter.setItems(it)
+            }
         )
+    }
+
+    fun generateFakeItems() = arrayListOf(
+        WineItem(
+            id = 0,
+            name = "Каберне la France",
+            rateTotal = 2
+        ),
+        WineItem(
+            id = 1,
+            name = "Шато Тамань",
+            rateTotal = 4
+        ),
+        WineItem(
+            id = 2,
+            name = "Frederic Monplaisir Bordeaux",
+            rateTotal = 5
+        )
+    )
 }

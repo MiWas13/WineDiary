@@ -1,7 +1,6 @@
 package ru.miwas.winediary.stubmain
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ class StubMainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prepareView()
+        observeViewModel()
         viewModel.startProcesses()
     }
 
@@ -37,6 +37,10 @@ class StubMainFragment : BaseFragment() {
             fragmentNavigationHelper.configHelper(it, R.id.mainContainer)
         }
         viewModel = StubMainViewModelImpl(StubMainNavigatorImpl(fragmentNavigationHelper))
+    }
+
+    override fun observeViewModel() {
+
     }
 
     override fun prepareView() {

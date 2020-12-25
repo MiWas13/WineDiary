@@ -6,4 +6,6 @@ abstract class BaseFragment : Fragment() {
     abstract fun prepareView()
 
     abstract fun prepareViewModel()
+
+    abstract fun observeViewModel()
 }

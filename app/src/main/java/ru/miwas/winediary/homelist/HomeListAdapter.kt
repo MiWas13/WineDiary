@@ -9,11 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.miwas.winediary.R
 import ru.miwas.winediary.homelist.model.WineItem
-import java.util.ArrayList
 
 class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
-    private var homeListItems = arrayListOf<WineItem>()
+    private var homeListItems = mutableListOf<WineItem>()
 
     class HomeListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameView: TextView = view.findViewById(R.id.name)
@@ -37,7 +36,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
         holder.totalRatingBar.rating = homeListItems[position].rateTotal.toFloat()
     }
 
-    fun setItems(homeListItems: ArrayList<WineItem>) {
+    fun setItems(homeListItems: MutableList<WineItem>) {
         this.homeListItems = homeListItems
     }
 }
