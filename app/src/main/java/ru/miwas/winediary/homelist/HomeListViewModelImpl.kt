@@ -32,17 +32,17 @@ class HomeListViewModelImpl(
 
     private fun fetchWineItemsData() {
         viewModelScope.launch {
-            wineItems.value = database.wineDao().getAllWinesLight().value?.toWineItems()
+            wineItems.value = database.wineDao().getAllWinesLight().toWineItems()
         }
     }
 
     private fun List<WineEntity>.toWineItems(): MutableList<WineItem> {
         return this.map {
             WineItem(
-                it.id,
-                it.name,
+                it.id ?: 0,
+                it.name ?: "",
                 it.imagePath,
-                it.rateTotal
+                it.rateTotal ?: 0
             )
         }.toMutableList()
     }
