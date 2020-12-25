@@ -9,7 +9,7 @@ class MainViewModelImpl(
     var hasAnyRecords = false
 
     override fun startProcesses() {
-        if (hasAnyRecords) {
+        if (!hasAnyRecords) {
             mainNavigator.openHomeListScreen()
         } else {
             mainNavigator.openStubMainScreen()
