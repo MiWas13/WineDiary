@@ -1,11 +1,13 @@
 package ru.miwas.winediary.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.miwas.winediary.R
 import ru.miwas.winediary.main.navigation.MainNavigatorImpl
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,10 +26,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         prepareViewModel()
-    }
-
-    override fun onStart() {
-        super.onStart()
         viewModel.startProcesses()
     }
 

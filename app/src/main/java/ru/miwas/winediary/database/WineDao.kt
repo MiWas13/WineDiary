@@ -16,14 +16,14 @@ interface WineDao {
     @Query("SELECT * FROM$SPACE$WINE_TABLE_NAME")
     fun getAllWines(): LiveData<List<WineEntity>>
 
-    @Query("SELECT name, image_path, rate_total FROM$SPACE$WINE_TABLE_NAME")
+    @Query("SELECT id, name, image_path, rate_total FROM$SPACE$WINE_TABLE_NAME")
     suspend fun getAllWinesLight(): List<WineEntity>
 
     @Query("SELECT * FROM$SPACE$WINE_TABLE_NAME ORDER BY id LIMIT 1")
     suspend fun getFirstWine(): List<WineEntity>
 
     @Insert
-    fun insert(wine: WineEntity)
+    suspend fun insert(wine: WineEntity)
 
     @Update
     fun update(wine: WineEntity)

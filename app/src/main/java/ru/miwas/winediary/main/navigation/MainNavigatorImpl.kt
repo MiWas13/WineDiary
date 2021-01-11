@@ -9,11 +9,11 @@ class MainNavigatorImpl(
 ) : MainNavigator {
 
     override fun openStubMainScreen() {
-        fragmentNavigationHelper.addFragment(StubMainFragment())
+        fragmentNavigationHelper.replaceFragmentWithBackStack(StubMainFragment())
     }
 
     override fun openHomeListScreen() {
-        fragmentNavigationHelper.addFragment(HomeListFragment())
+        fragmentNavigationHelper.replaceFragmentWithBackStack(HomeListFragment())
     }
 
     override fun clear() {

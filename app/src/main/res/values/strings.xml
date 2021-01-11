@@ -24,4 +24,5 @@
     <string name="create_record_step_third">Шаг 3 из 3</string>
 
     <string name="create_record_wine_added">Вино добавлено в вашу коллекцию!</string>
+    <string name="create_record_to_main">На главную</string>
 </resources>

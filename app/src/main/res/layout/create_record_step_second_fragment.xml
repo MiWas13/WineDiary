@@ -47,6 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/step">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/grapeVarietiesInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -66,6 +67,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/grapeVarietiesInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/smellInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#D4855B" />
@@ -86,6 +88,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/smellInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tasteInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#D4855B" />
@@ -106,6 +109,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tasteInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/combinationInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#D4855B" />
@@ -126,6 +130,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/combinationInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notesInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#D4855B" />

@@ -1,5 +1,6 @@
 package ru.miwas.winediary.homelist
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.miwas.winediary.R
 import ru.miwas.winediary.homelist.model.WineItem
+import java.io.File
 
 class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
@@ -34,9 +36,13 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {
         holder.nameView.text = homeListItems[position].name
         holder.totalRatingBar.rating = homeListItems[position].rateTotal.toFloat()
+        homeListItems[position].imagePath?.let {
+            holder.imageView.setImageBitmap(BitmapFactory.decodeFile(File(it).absolutePath))
+        }
     }
 
     fun setItems(homeListItems: MutableList<WineItem>) {
         this.homeListItems = homeListItems
+        notifyDataSetChanged()
     }
 }

@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.home_list_fragment.*
+import kotlinx.android.synthetic.main.home_list_fragment.addButton
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
 import ru.miwas.winediary.homelist.model.WineItem
 import ru.miwas.winediary.homelist.navigation.HomeListNavigatorImpl
+import ru.miwas.winediary.homelist.HomeListViewModel.Event.AddClicked
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
 
@@ -43,6 +45,10 @@ class HomeListFragment : BaseFragment() {
     }
 
     override fun prepareView() {
+        addButton.setOnClickListener {
+            viewModel.dispatchEvent(AddClicked)
+        }
+
         homeListRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = homeListAdapter

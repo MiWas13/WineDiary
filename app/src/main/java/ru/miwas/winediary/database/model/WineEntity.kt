@@ -8,12 +8,12 @@ import ru.miwas.winediary.utils.Constants
 @Entity(tableName = Constants.WINE_TABLE_NAME)
 data class WineEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long?,
+    val id: Long = 0L,
     val name: String?,
     val country: String?,
     val year: Int?,
     @ColumnInfo(name = "alcohol_percentage")
-    val alcoholPercentage: Int?,
+    val alcoholPercentage: Float?,
     val color: String?,
     val price: Int?,
     @ColumnInfo(name = "image_path")

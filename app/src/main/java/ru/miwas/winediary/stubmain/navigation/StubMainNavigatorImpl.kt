@@ -8,7 +8,7 @@ class StubMainNavigatorImpl(
 ) : StubMainNavigator {
 
     override fun startAdding() {
-        fragmentNavigationHelper.addFragment(CreateRecordFragment())
+        fragmentNavigationHelper.replaceFragmentWithBackStack(CreateRecordFragment())
     }
 
     override fun clear() {

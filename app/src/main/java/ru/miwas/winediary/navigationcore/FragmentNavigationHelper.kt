@@ -8,9 +8,13 @@ interface FragmentNavigationHelper {
 
     fun configHelper(fragmentManager: FragmentManager, @IdRes containerId: Int)
 
-    fun addFragment(fragment: Fragment, stackName: String? = null)
+    fun replaceFragmentWithBackStack(fragment: Fragment, stackName: String? = null)
+
+    fun goToMain()
 
     fun removeLastFragment()
+
+    fun removeAllFragments()
 
     fun clearHelper()
 

@@ -2,6 +2,7 @@ package ru.miwas.winediary.navigationcore
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import ru.miwas.winediary.homelist.HomeListFragment
 
 class FragmentNavigationHelperImpl : FragmentNavigationHelper {
 
@@ -14,19 +15,38 @@ class FragmentNavigationHelperImpl : FragmentNavigationHelper {
         this.containerId = containerId
     }
 
-    override fun addFragment(fragment: Fragment, stackName: String?) {
+    override fun replaceFragmentWithBackStack(fragment: Fragment, stackName: String?) {
         fragmentManager?.apply {
             containerId?.let {
                 beginTransaction()
-                    .add(it, fragment, stackName)
+                    .replace(it, fragment, stackName)
                     .addToBackStack(stackName)
                     .commit()
             }
         }
     }
 
-    override fun removeLastFragment() {
+    override fun goToMain() {
+        removeAllFragments()
+        replaceFragmentWithBackStack(HomeListFragment(), "Home")
+    }
 
+    override fun removeLastFragment() {
+        fragmentManager?.apply {
+            popBackStack()
+        }
+    }
+
+    override fun removeAllFragments() {
+        fragmentManager?.let { manager ->
+            manager.backStackEntryCount.let { backStackCount ->
+                if (backStackCount > 0) {
+                    for (i in 0 until backStackCount) {
+                        manager.popBackStackImmediate()
+                    }
+                }
+            }
+        }
     }
 
     override fun clearHelper() {

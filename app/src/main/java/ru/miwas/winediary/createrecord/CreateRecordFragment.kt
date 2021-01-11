@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.create_record_fragment.*
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
 import ru.miwas.winediary.createrecord.navigation.CreateRecordNavigatorImpl
 import ru.miwas.winediary.createrecord.steps.first.FirstStepFragment
+import ru.miwas.winediary.createrecord.steps.result.ResultFragment
 import ru.miwas.winediary.createrecord.steps.second.SecondStepFragment
 import ru.miwas.winediary.createrecord.steps.third.ThirdStepFragment
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
@@ -43,7 +44,12 @@ class CreateRecordFragment : BaseFragment() {
     }
 
     override fun observeViewModel() {
-
+        viewModel.viewPagerActivePage.observe(
+            viewLifecycleOwner,
+            Observer {
+                stepsViewPager.currentItem = it
+            }
+        )
     }
 
     override fun prepareView() {
@@ -52,9 +58,10 @@ class CreateRecordFragment : BaseFragment() {
 
     private fun prepareViewPager() {
         val stepsFragments = arrayListOf(
-            FirstStepFragment.newInstance(stepsViewPager),
-            SecondStepFragment.newInstance(stepsViewPager),
-            ThirdStepFragment.newInstance()
+            FirstStepFragment.newInstance(viewModel),
+            SecondStepFragment.newInstance(viewModel),
+            ThirdStepFragment.newInstance(viewModel),
+            ResultFragment.newInstance(viewModel)
         )
         activity?.let {
             val adapter = CreateRecordAdapter(it)
@@ -63,6 +70,5 @@ class CreateRecordFragment : BaseFragment() {
             stepsViewPager.clipToPadding = false
             stepsViewPager.isUserInputEnabled = false
         }
-
     }
 }
