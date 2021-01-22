@@ -13,6 +13,7 @@ import ru.miwas.winediary.base.BaseFragment
 import ru.miwas.winediary.homelist.model.WineItem
 import ru.miwas.winediary.homelist.navigation.HomeListNavigatorImpl
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.AddClicked
+import ru.miwas.winediary.homelist.HomeListViewModel.Event.WineClicked
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
 
@@ -20,7 +21,14 @@ class HomeListFragment : BaseFragment() {
 
     private lateinit var viewModel: HomeListViewModel
     private val fragmentNavigationHelper: FragmentNavigationHelper = FragmentNavigationHelperImpl()
-    private val homeListAdapter = HomeListAdapter()
+
+    private val homeItemClickListener: HomeItemClickListener = object : HomeItemClickListener {
+        override fun onClick(id: Long) {
+            viewModel.dispatchEvent(WineClicked(id))
+        }
+    }
+
+    private val homeListAdapter = HomeListAdapter(homeItemClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -22,6 +22,9 @@ interface WineDao {
     @Query("SELECT * FROM$SPACE$WINE_TABLE_NAME ORDER BY id LIMIT 1")
     suspend fun getFirstWine(): List<WineEntity>
 
+    @Query("SELECT * FROM$SPACE$WINE_TABLE_NAME WHERE id = :id")
+    suspend fun getWineById(id: Long): WineEntity
+
     @Insert
     suspend fun insert(wine: WineEntity)
 

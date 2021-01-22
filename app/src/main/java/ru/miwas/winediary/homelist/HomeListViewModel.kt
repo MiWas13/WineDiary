@@ -10,5 +10,6 @@ interface HomeListViewModel : BaseViewModel<HomeListViewModel.Event> {
 
     sealed class Event {
         object AddClicked : Event()
+        class WineClicked(val id: Long) : Event()
     }
 }

@@ -12,7 +12,9 @@ import ru.miwas.winediary.R
 import ru.miwas.winediary.homelist.model.WineItem
 import java.io.File
 
-class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
+class HomeListAdapter(
+    private val clickListener: HomeItemClickListener
+) : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>() {
 
     private var homeListItems = mutableListOf<WineItem>()
 
@@ -39,6 +41,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder>
         homeListItems[position].imagePath?.let {
             holder.imageView.setImageBitmap(BitmapFactory.decodeFile(File(it).absolutePath))
         }
+        holder.itemView.setOnClickListener { clickListener.onClick(homeListItems[position].id) }
     }
 
     fun setItems(homeListItems: MutableList<WineItem>) {

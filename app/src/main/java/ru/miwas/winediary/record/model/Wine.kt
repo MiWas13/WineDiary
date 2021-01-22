@@ -1,12 +1,10 @@
-package ru.miwas.winediary.model
-
-import java.time.Year
+package ru.miwas.winediary.record.model
 
 data class Wine(
     val name: String,
     val country: String,
-    val year: Year,
-    val alcoholPercentage: Int,
+    val year: Int,
+    val alcoholPercentage: Float,
     val color: String,
     val price: Int,
     val imagePath: String,

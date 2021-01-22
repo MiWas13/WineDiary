@@ -5,4 +5,6 @@ import ru.miwas.winediary.base.BaseNavigator
 interface HomeListNavigator : BaseNavigator {
 
     fun startAdding()
+
+    fun openWineRecord(id: Long)
 }
