@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.miwas.winediary.appmetrica.AppMetricaSender
 import ru.miwas.winediary.base.App
 import ru.miwas.winediary.database.AppDatabase
 import ru.miwas.winediary.database.model.WineEntity
@@ -22,14 +23,23 @@ class HomeListViewModelImpl(
 
     override val wineItems: MutableLiveData<MutableList<WineItem>> = MutableLiveData()
 
+    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
+
     override fun startProcesses() {
+        appMetricaSender.sendEvent(EVENT_SHOW_HOME_LIST)
         fetchWineItemsData()
     }
 
     override fun dispatchEvent(event: HomeListViewModel.Event) {
         when (event) {
-            AddClicked -> homeListNavigator.startAdding()
-            is WineClicked -> homeListNavigator.openWineRecord(event.id)
+            AddClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_ADD)
+                homeListNavigator.startAdding()
+            }
+            is WineClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_WINE_ITEM)
+                homeListNavigator.openWineRecord(event.id)
+            }
         }
     }
 
@@ -52,5 +62,11 @@ class HomeListViewModelImpl(
                 it.rateTotal ?: EMPTY_INT
             )
         }.toMutableList()
+    }
+
+    companion object {
+        const val EVENT_SHOW_HOME_LIST = "Home_list_screen_show"
+        const val EVENT_CLICK_ADD = "Add_button_home_list_screen_click"
+        const val EVENT_CLICK_WINE_ITEM = "Wine_item_home_list_screen_click"
     }
 }

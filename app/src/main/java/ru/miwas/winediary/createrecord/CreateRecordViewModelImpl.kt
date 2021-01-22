@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.miwas.winediary.appmetrica.AppMetricaSender
 import ru.miwas.winediary.base.App
 import ru.miwas.winediary.createrecord.navigation.CreateRecordNavigator
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.NextStepClicked
@@ -40,6 +41,7 @@ class CreateRecordViewModelImpl(
     override val viewPagerActivePage: MutableLiveData<Int> = MutableLiveData()
     override val choosePhoto: MutableLiveData<Boolean> = MutableLiveData()
     private val database: AppDatabase = App.instance.database
+    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
 
     private var name: String = EMPTY_STRING
     private var country: String = EMPTY_STRING
@@ -58,14 +60,24 @@ class CreateRecordViewModelImpl(
     private var totalRating: Int = 0
 
     override fun startProcesses() {
+        appMetricaSender.sendEvent(EVENT_SHOW_CREATE_RECORD)
         viewPagerActivePage.value = 0
     }
 
     override fun dispatchEvent(event: CreateRecordViewModel.Event) {
         when (event) {
-            NextStepClicked -> checkValuesAndUpdate(false)
-            ConfirmClicked -> checkValuesAndUpdate(true)
-            ToMainClicked -> finish()
+            NextStepClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_NEXT)
+                checkValuesAndUpdate(false)
+            }
+            ConfirmClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_CONFIRM)
+                checkValuesAndUpdate(true)
+            }
+            ToMainClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_GO_TO_MAIN)
+                finish()
+            }
             is OnEditTextChanged -> editTextChanged(event.editTextType)
             is OnRatingBarClicked -> ratingChanged(event.ratingBarType)
             OnImageClicked -> choosePhotoClicked()
@@ -163,5 +175,12 @@ class CreateRecordViewModelImpl(
 
     private fun finish() {
         createRecordNavigator.goToMainScreen()
+    }
+
+    companion object {
+        const val EVENT_SHOW_CREATE_RECORD = "Create_record_screen_show"
+        const val EVENT_CLICK_NEXT = "Next_button_record_screen_click"
+        const val EVENT_CLICK_CONFIRM = "Confirm_button_record_screen_click"
+        const val EVENT_CLICK_GO_TO_MAIN = "Go_to_main_button_record_screen_click"
     }
 }

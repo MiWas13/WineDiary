@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.miwas.winediary.appmetrica.AppMetricaSender
 import ru.miwas.winediary.base.App
 import ru.miwas.winediary.database.AppDatabase
 import ru.miwas.winediary.database.model.WineEntity
@@ -19,10 +20,14 @@ class RecordViewModelImpl(
 
     private val database: AppDatabase = App.instance.database
 
+    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
+
     override val wine: MutableLiveData<Wine> = MutableLiveData()
+
     private var wineId: Long = 0
 
     override fun startProcesses() {
+        appMetricaSender.sendEvent(EVENT_SHOW_RECORD)
         viewModelScope.launch {
             wine.value = database.wineDao().getWineById(wineId).toWine()
         }
@@ -56,8 +61,11 @@ class RecordViewModelImpl(
         }
     }
 
-
     override fun setWineId(id: Long) {
         wineId = id
+    }
+
+    companion object {
+        const val EVENT_SHOW_RECORD = "Record_screen_show"
     }
 }
