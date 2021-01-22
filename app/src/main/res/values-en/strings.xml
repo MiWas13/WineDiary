@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WineDiary</string>
+
+    <string name="stub_main_text">Here will be the list of your favourite wine. \nLet\'s add something!</string>
+    <string name="create_record_next_button_text">Next</string>
+    <string name="create_record_ready_button_text">Ready</string>
+    <string name="create_record_wine_name">Wine name</string>
+    <string name="create_record_country_creator">Region</string>
+    <string name="create_record_year">Year</string>
+    <string name="create_record_alcohol_percentage">Alcohol Percentage</string>
+    <string name="create_record_color">Color</string>
+    <string name="create_record_price">Price</string>
+    <string name="create_record_grape_varieties">Grape Varieties</string>
+    <string name="create_record_smell">Smell</string>
+    <string name="create_record_taste">Taste</string>
+    <string name="create_record_combination">Pairing with food</string>
+    <string name="create_record_notes">Extra note</string>
+    <string name="create_record_smell_rating">Smell rating</string>
+    <string name="create_record_taste_rating">Taste rating</string>
+    <string name="create_record_total_rating">Total rating</string>
+
+    <string name="create_record_step_first">Step 1 of 3</string>
+    <string name="create_record_step_second">Step 2 of 3</string>
+    <string name="create_record_step_third">Step 3 of 3</string>
+
+    <string name="create_record_wine_added">Wine added to your collection!</string>
+    <string name="create_record_to_main">Go to main</string>
+</resources>
