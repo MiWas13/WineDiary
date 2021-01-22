@@ -32,4 +32,9 @@
         <item name="colorControlNormal">@color/darkGrey</item>
     </style>
 
+    <style name="HelperTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/darkOrange</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

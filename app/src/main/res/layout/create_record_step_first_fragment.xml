@@ -42,6 +42,7 @@
                 android:hint="@string/create_record_wine_name"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/step">
@@ -62,6 +63,7 @@
                 android:hint="@string/create_record_country_creator"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameInputLayout">
@@ -83,6 +85,7 @@
                 android:hint="@string/create_record_year"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/countryInputLayout">
@@ -105,6 +108,7 @@
                 android:hint="@string/create_record_alcohol_percentage"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yearInputLayout">
@@ -127,6 +131,7 @@
                 android:hint="@string/create_record_color"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/alcoholPercentageInputLayout">
@@ -148,6 +153,7 @@
                 android:hint="@string/create_record_price"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/colorInputLayout">

@@ -42,6 +42,7 @@
                 android:hint="@string/create_record_grape_varieties"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/step">
@@ -62,6 +63,7 @@
                 android:hint="@string/create_record_smell"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/grapeVarietiesInputLayout">
@@ -83,6 +85,7 @@
                 android:hint="@string/create_record_taste"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/smellInputLayout">
@@ -104,6 +107,7 @@
                 android:hint="@string/create_record_combination"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tasteInputLayout">
@@ -125,6 +129,7 @@
                 android:hint="@string/create_record_notes"
                 android:textColorHint="#D3A991"
                 app:boxBackgroundColor="@color/defaultWhite"
+                app:hintTextAppearance="@style/HelperTextAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/combinationInputLayout">
