@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.miwas.winediary.appmetrica.AppMetricaSender
-import ru.miwas.winediary.base.App
 import ru.miwas.winediary.createrecord.navigation.CreateRecordNavigator
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.NextStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.ConfirmClicked
@@ -33,15 +32,16 @@ import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.Notes
 import ru.miwas.winediary.database.AppDatabase
 import ru.miwas.winediary.database.model.WineEntity
 import ru.miwas.winediary.utils.Constants.EMPTY_STRING
+import javax.inject.Inject
 
-class CreateRecordViewModelImpl(
-    private val createRecordNavigator: CreateRecordNavigator
+class CreateRecordViewModelImpl @Inject constructor(
+    private val createRecordNavigator: CreateRecordNavigator,
+    private val database: AppDatabase,
+    private val appMetricaSender: AppMetricaSender
 ) : CreateRecordViewModel, ViewModel() {
 
     override val viewPagerActivePage: MutableLiveData<Int> = MutableLiveData()
     override val choosePhoto: MutableLiveData<Boolean> = MutableLiveData()
-    private val database: AppDatabase = App.instance.database
-    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
 
     private var name: String = EMPTY_STRING
     private var country: String = EMPTY_STRING

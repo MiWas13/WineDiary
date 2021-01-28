@@ -1,8 +1,9 @@
 package ru.miwas.winediary.createrecord.navigation
 
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
+import javax.inject.Inject
 
-class CreateRecordNavigatorImpl(
+class CreateRecordNavigatorImpl @Inject constructor(
     private val fragmentNavigationHelper: FragmentNavigationHelper
 ) : CreateRecordNavigator {
 

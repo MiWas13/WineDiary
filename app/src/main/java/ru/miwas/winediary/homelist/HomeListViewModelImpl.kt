@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.miwas.winediary.appmetrica.AppMetricaSender
-import ru.miwas.winediary.base.App
 import ru.miwas.winediary.database.AppDatabase
 import ru.miwas.winediary.database.model.WineEntity
 import ru.miwas.winediary.homelist.model.WineItem
@@ -14,16 +13,15 @@ import ru.miwas.winediary.homelist.HomeListViewModel.Event.AddClicked
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.WineClicked
 import ru.miwas.winediary.utils.Constants.EMPTY_INT
 import ru.miwas.winediary.utils.Constants.EMPTY_STRING
+import javax.inject.Inject
 
-class HomeListViewModelImpl(
-    private val homeListNavigator: HomeListNavigator
+class HomeListViewModelImpl @Inject constructor(
+    private val homeListNavigator: HomeListNavigator,
+    private val database: AppDatabase,
+    private val appMetricaSender: AppMetricaSender
 ) : HomeListViewModel, ViewModel() {
 
-    private val database: AppDatabase = App.instance.database
-
     override val wineItems: MutableLiveData<MutableList<WineItem>> = MutableLiveData()
-
-    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
 
     override fun startProcesses() {
         appMetricaSender.sendEvent(EVENT_SHOW_HOME_LIST)

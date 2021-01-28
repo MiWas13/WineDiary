@@ -1,5 +1,6 @@
 package ru.miwas.winediary.record
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,17 +10,34 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.record_fragment.*
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
-import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
+import ru.miwas.winediary.record.di.component.DaggerRecordComponent
+import ru.miwas.winediary.record.di.module.RecordFragmentModule
 import ru.miwas.winediary.record.model.Wine
-import ru.miwas.winediary.record.navigation.RecordNavigatorImpl
 import java.io.File
+import javax.inject.Inject
 
 class RecordFragment(
     private val id: Long
 ) : BaseFragment() {
-    private lateinit var viewModel: RecordViewModel
-    private val fragmentNavigationHelper: FragmentNavigationHelper = FragmentNavigationHelperImpl()
+
+    @Inject
+    lateinit var viewModel: RecordViewModel
+
+    @Inject
+    lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        DaggerRecordComponent
+            .builder()
+            .recordFragmentModule(RecordFragmentModule(this))
+            .appComponent(DaggerDI.appComponent)
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +59,6 @@ class RecordFragment(
         fragmentManager?.let {
             fragmentNavigationHelper.configHelper(it, R.id.mainContainer)
         }
-        viewModel = RecordViewModelImpl(RecordNavigatorImpl(fragmentNavigationHelper))
     }
 
     override fun observeViewModel() {

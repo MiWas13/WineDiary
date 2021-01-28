@@ -1,5 +1,6 @@
 package ru.miwas.winediary.homelist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +11,22 @@ import kotlinx.android.synthetic.main.home_list_fragment.*
 import kotlinx.android.synthetic.main.home_list_fragment.addButton
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.homelist.model.WineItem
-import ru.miwas.winediary.homelist.navigation.HomeListNavigatorImpl
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.AddClicked
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.WineClicked
+import ru.miwas.winediary.homelist.di.component.DaggerHomeListComponent
+import ru.miwas.winediary.homelist.di.module.HomeListFragmentModule
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
-import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
+import javax.inject.Inject
 
 class HomeListFragment : BaseFragment() {
 
-    private lateinit var viewModel: HomeListViewModel
-    private val fragmentNavigationHelper: FragmentNavigationHelper = FragmentNavigationHelperImpl()
+    @Inject
+    lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+
+    @Inject
+    lateinit var viewModel: HomeListViewModel
 
     private val homeItemClickListener: HomeItemClickListener = object : HomeItemClickListener {
         override fun onClick(id: Long) {
@@ -29,6 +35,17 @@ class HomeListFragment : BaseFragment() {
     }
 
     private val homeListAdapter = HomeListAdapter(homeItemClickListener)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        DaggerHomeListComponent
+            .builder()
+            .homeListFragmentModule(HomeListFragmentModule(this))
+            .appComponent(DaggerDI.appComponent)
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +66,6 @@ class HomeListFragment : BaseFragment() {
         fragmentManager?.let {
             fragmentNavigationHelper.configHelper(it, R.id.mainContainer)
         }
-        viewModel = HomeListViewModelImpl(HomeListNavigatorImpl(fragmentNavigationHelper))
     }
 
     override fun prepareView() {

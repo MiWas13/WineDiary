@@ -3,8 +3,9 @@ package ru.miwas.winediary.homelist.navigation
 import ru.miwas.winediary.createrecord.CreateRecordFragment
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.record.RecordFragment
+import javax.inject.Inject
 
-class HomeListNavigatorImpl(
+class HomeListNavigatorImpl @Inject constructor(
     private val fragmentNavigationHelper: FragmentNavigationHelper
 ) : HomeListNavigator {
 

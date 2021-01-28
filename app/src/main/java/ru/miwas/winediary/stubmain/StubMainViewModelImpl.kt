@@ -1,14 +1,14 @@
 package ru.miwas.winediary.stubmain
 
+import androidx.lifecycle.ViewModel
 import ru.miwas.winediary.appmetrica.AppMetricaSender
-import ru.miwas.winediary.base.App
 import ru.miwas.winediary.stubmain.navigation.StubMainNavigator
+import javax.inject.Inject
 
-class StubMainViewModelImpl(
-    private val stubMainNavigator: StubMainNavigator
-) : StubMainViewModel {
-
-    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
+class StubMainViewModelImpl @Inject constructor(
+    private val stubMainNavigator: StubMainNavigator,
+    private val appMetricaSender: AppMetricaSender
+) : StubMainViewModel, ViewModel() {
 
     override fun startProcesses() {
         appMetricaSender.sendEvent(EVENT_SHOW_STUB_MAIN)

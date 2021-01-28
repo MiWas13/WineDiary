@@ -1,5 +1,6 @@
 package ru.miwas.winediary.stubmain
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +8,31 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.stub_main_fragment.addButton
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
-import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
-import ru.miwas.winediary.stubmain.navigation.StubMainNavigatorImpl
 import ru.miwas.winediary.stubmain.StubMainViewModel.Event.AddClicked
+import ru.miwas.winediary.stubmain.di.component.DaggerStubMainComponent
+import ru.miwas.winediary.stubmain.di.module.StubMainFragmentModule
+import javax.inject.Inject
 
 class StubMainFragment : BaseFragment() {
 
-    private lateinit var viewModel: StubMainViewModel
-    private val fragmentNavigationHelper: FragmentNavigationHelper = FragmentNavigationHelperImpl()
+    @Inject
+    lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+
+    @Inject
+    lateinit var viewModel: StubMainViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        DaggerStubMainComponent
+            .builder()
+            .stubMainFragmentModule(StubMainFragmentModule(this))
+            .appComponent(DaggerDI.appComponent)
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +53,6 @@ class StubMainFragment : BaseFragment() {
         fragmentManager?.let {
             fragmentNavigationHelper.configHelper(it, R.id.mainContainer)
         }
-        viewModel = StubMainViewModelImpl(StubMainNavigatorImpl(fragmentNavigationHelper))
     }
 
     override fun observeViewModel() {

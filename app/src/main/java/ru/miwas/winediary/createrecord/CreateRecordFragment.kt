@@ -1,5 +1,6 @@
 package ru.miwas.winediary.createrecord
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +9,34 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.create_record_fragment.*
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
-import ru.miwas.winediary.createrecord.navigation.CreateRecordNavigatorImpl
+import ru.miwas.winediary.createrecord.di.component.DaggerCreateRecordComponent
+import ru.miwas.winediary.createrecord.di.module.CreateRecordFragmentModule
 import ru.miwas.winediary.createrecord.steps.first.FirstStepFragment
 import ru.miwas.winediary.createrecord.steps.result.ResultFragment
 import ru.miwas.winediary.createrecord.steps.second.SecondStepFragment
 import ru.miwas.winediary.createrecord.steps.third.ThirdStepFragment
+import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
-import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
+import javax.inject.Inject
 
 class CreateRecordFragment : BaseFragment() {
 
-    private lateinit var viewModel: CreateRecordViewModel
-    private val fragmentNavigationHelper: FragmentNavigationHelper = FragmentNavigationHelperImpl()
+    @Inject
+    lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+
+    @Inject
+    lateinit var viewModel: CreateRecordViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        DaggerCreateRecordComponent
+            .builder()
+            .createRecordFragmentModule(CreateRecordFragmentModule(this))
+            .appComponent(DaggerDI.appComponent)
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +57,6 @@ class CreateRecordFragment : BaseFragment() {
         fragmentManager?.let {
             fragmentNavigationHelper.configHelper(it, R.id.mainContainer)
         }
-        viewModel = CreateRecordViewModelImpl(CreateRecordNavigatorImpl(fragmentNavigationHelper))
     }
 
     override fun observeViewModel() {

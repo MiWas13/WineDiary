@@ -13,14 +13,13 @@ import ru.miwas.winediary.record.navigation.RecordNavigator
 import ru.miwas.winediary.utils.Constants.EMPTY_FLOAT
 import ru.miwas.winediary.utils.Constants.EMPTY_INT
 import ru.miwas.winediary.utils.Constants.EMPTY_STRING
+import javax.inject.Inject
 
-class RecordViewModelImpl(
-    private val recordNavigator: RecordNavigator
+class RecordViewModelImpl @Inject constructor(
+    private val recordNavigator: RecordNavigator,
+    private val database: AppDatabase,
+    private val appMetricaSender: AppMetricaSender
 ) : RecordViewModel, ViewModel() {
-
-    private val database: AppDatabase = App.instance.database
-
-    private val appMetricaSender: AppMetricaSender = App.instance.appMetricaSender
 
     override val wine: MutableLiveData<Wine> = MutableLiveData()
 

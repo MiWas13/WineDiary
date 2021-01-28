@@ -1,35 +1,44 @@
 package ru.miwas.winediary.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.miwas.winediary.R
-import ru.miwas.winediary.main.navigation.MainNavigatorImpl
+import ru.miwas.winediary.di.DaggerDI
+import ru.miwas.winediary.main.di.component.DaggerMainComponent
+import ru.miwas.winediary.main.di.module.MainActivityModule
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
-import ru.miwas.winediary.navigationcore.FragmentNavigationHelperImpl
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+    @Inject
+    lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+
+    @Inject
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.statusBarColor = resources.getColor(R.color.dirtyWhite, null)
 
-        fragmentNavigationHelper = FragmentNavigationHelperImpl()
+        DaggerMainComponent
+            .builder()
+            .mainActivityModule(
+                MainActivityModule(
+                    this
+                )
+            )
+            .appComponent(DaggerDI.appComponent)
+            .build()
+            .inject(this)
+
         fragmentNavigationHelper.configHelper(
             supportFragmentManager,
             R.id.mainContainer
         )
 
-        prepareViewModel()
         viewModel.startProcesses()
-    }
-
-    private fun prepareViewModel() {
-        viewModel = MainViewModelImpl(MainNavigatorImpl(fragmentNavigationHelper))
     }
 }
