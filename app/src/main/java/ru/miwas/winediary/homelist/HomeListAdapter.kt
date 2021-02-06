@@ -1,6 +1,5 @@
 package ru.miwas.winediary.homelist
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +7,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.miwas.winediary.R
 import ru.miwas.winediary.homelist.model.WineItem
 import java.io.File
@@ -51,8 +51,14 @@ class HomeListAdapter(
     private fun configureImage(currentItem: WineItem, holder: HomeListViewHolder) {
         val imagePath = currentItem.imagePath
         if (!imagePath.isNullOrEmpty()) {
-            imagePath.let {
-                holder.imageView.setImageBitmap(BitmapFactory.decodeFile(File(it).absolutePath))
+            imagePath.let { validPath ->
+                with(holder) {
+                    Glide
+                        .with(itemView)
+                        .load(File(validPath))
+                        .placeholder(R.drawable.image_placeholder)
+                        .into(imageView)
+                }
             }
         }
     }

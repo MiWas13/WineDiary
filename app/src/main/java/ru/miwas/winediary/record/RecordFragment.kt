@@ -1,12 +1,12 @@
 package ru.miwas.winediary.record
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.record_fragment.*
 import ru.miwas.winediary.R
 import ru.miwas.winediary.base.BaseFragment
@@ -78,7 +78,7 @@ class RecordFragment(
     private fun configureView(wine: Wine) {
         with(wine) {
             if (imagePath.isNotEmpty()) {
-                winePhoto.setImageBitmap(BitmapFactory.decodeFile(File(imagePath).absolutePath))
+                configureImage(imagePath)
             }
             wineNameValue.text = name
             countryValue.text = country
@@ -96,5 +96,13 @@ class RecordFragment(
             totalRatingBar.rating = rateTotal.toFloat()
         }
 
+    }
+
+    private fun configureImage(imagePath: String) {
+        Glide
+            .with(this@RecordFragment)
+            .load(File(imagePath))
+            .placeholder(R.drawable.image_placeholder)
+            .into(winePhoto)
     }
 }
