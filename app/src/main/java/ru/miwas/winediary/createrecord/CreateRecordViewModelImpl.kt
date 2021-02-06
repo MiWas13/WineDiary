@@ -31,6 +31,8 @@ import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.Combin
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.Notes
 import ru.miwas.winediary.database.AppDatabase
 import ru.miwas.winediary.database.model.WineEntity
+import ru.miwas.winediary.utils.Constants.EMPTY_FLOAT
+import ru.miwas.winediary.utils.Constants.EMPTY_INT
 import ru.miwas.winediary.utils.Constants.EMPTY_STRING
 import javax.inject.Inject
 
@@ -45,19 +47,19 @@ class CreateRecordViewModelImpl @Inject constructor(
 
     private var name: String = EMPTY_STRING
     private var country: String = EMPTY_STRING
-    private var year: Int = 0
-    private var alcoholPercentage: Float = 0F
+    private var year: Int = EMPTY_INT
+    private var alcoholPercentage: Float = EMPTY_FLOAT
     private var color: String = EMPTY_STRING
-    private var price: Int = 0
+    private var price: Int = EMPTY_INT
     private var grapeVarieties: String = EMPTY_STRING
     private var smell: String = EMPTY_STRING
     private var taste: String = EMPTY_STRING
     private var combination: String = EMPTY_STRING
     private var notes: String = EMPTY_STRING
     private var imagePath: String = EMPTY_STRING
-    private var smellRating: Int = 0
-    private var tasteRating: Int = 0
-    private var totalRating: Int = 0
+    private var smellRating: Int = EMPTY_INT
+    private var tasteRating: Int = EMPTY_INT
+    private var totalRating: Int = EMPTY_INT
 
     override fun startProcesses() {
         appMetricaSender.sendEvent(EVENT_SHOW_CREATE_RECORD)
@@ -93,68 +95,72 @@ class CreateRecordViewModelImpl @Inject constructor(
         viewPagerActivePage.value = viewPagerActivePage.value?.plus(1)
 
         if (isSaving) {
-//            val wineEntity = WineEntity(
-//                name = name,
-//                country = country,
-//                year = year,
-//                alcoholPercentage = alcoholPercentage,
-//                color = color,
-//                price = price,
-//                grapeVariety = grapeVarieties,
-//                smell = smell,
-//                taste = taste,
-//                combination = combination,
-//                notes = notes,
-//                rateSmell = smellRating,
-//                rateTaste = tasteRating,
-//                rateTotal = totalRating,
-//                imagePath = imageUri
-//            )
             val wineEntity = WineEntity(
-                name = "Крутое вино",
-                country = "Австралия",
-                year = 2013,
-                alcoholPercentage = 13.4F,
-                color = "Красное",
-                price = 1500,
-                grapeVariety = "Крутой виноградик",
-                smell = "Вкусно пахнет",
-                taste = "На вкус вкусно",
-                combination = "С сыром",
-                notes = "Полезная заметка",
-                rateSmell = 4,
-                rateTaste = 5,
-                rateTotal = 4,
+                name = name,
+                country = country,
+                year = year,
+                alcoholPercentage = alcoholPercentage,
+                color = color,
+                price = price,
+                grapeVariety = grapeVarieties,
+                smell = smell,
+                taste = taste,
+                combination = combination,
+                notes = notes,
+                rateSmell = smellRating,
+                rateTaste = tasteRating,
+                rateTotal = totalRating,
                 imagePath = imagePath
             )
+//            val wineEntity = WineEntity(
+//                name = "Крутое вино",
+//                country = "Австралия",
+//                year = 2013,
+//                alcoholPercentage = 13.4F,
+//                color = "Красное",
+//                price = 1500,
+//                grapeVariety = "Крутой виноградик",
+//                smell = "Вкусно пахнет",
+//                taste = "На вкус вкусно",
+//                combination = "С сыром",
+//                notes = "Полезная заметка",
+//                rateSmell = 4,
+//                rateTaste = 5,
+//                rateTotal = 4,
+//                imagePath = imagePath
+//            )
             viewModelScope.launch {
                 database.wineDao().insert(wineEntity)
             }
         }
     }
 
-    private fun validateFirstStep() {
-
-    }
-
-    private fun validateSecondStep() {
-
-    }
-
     private fun editTextChanged(editTextType: EditTextType) {
         when (editTextType) {
             is Name -> name = editTextType.text ?: EMPTY_STRING
             is Country -> country = editTextType.text ?: EMPTY_STRING
-            is Year -> year = editTextType.text?.toInt() ?: 0
-            is AlcoholPercentage -> alcoholPercentage = editTextType.text?.toFloat() ?: 0F
+            is Year -> year = validateIntNumber(editTextType.text)
+            is AlcoholPercentage -> alcoholPercentage = validateFloatNumber(editTextType.text)
             is Color -> color = editTextType.text ?: EMPTY_STRING
-            is Price -> price = editTextType.text?.toInt() ?: 0
+            is Price -> price = validateIntNumber(editTextType.text)
             is GrapeVarieties -> grapeVarieties = editTextType.text ?: EMPTY_STRING
             is SmellDescription -> smell = editTextType.text ?: EMPTY_STRING
             is TasteDescription -> taste = editTextType.text ?: EMPTY_STRING
             is Combination -> combination = editTextType.text ?: EMPTY_STRING
             is Notes -> notes = editTextType.text ?: EMPTY_STRING
         }
+    }
+
+    private fun validateIntNumber(text: String?): Int {
+        return if (!text.isNullOrEmpty()) {
+            text.toInt()
+        } else EMPTY_INT
+    }
+
+    private fun validateFloatNumber(text: String?): Float {
+        return if (!text.isNullOrEmpty()) {
+            text.toFloat()
+        } else EMPTY_FLOAT
     }
 
     private fun choosePhotoClicked() {

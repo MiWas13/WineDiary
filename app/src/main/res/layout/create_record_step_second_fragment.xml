@@ -50,7 +50,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/grapeVarietiesInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:textColor="#D4855B" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +74,7 @@
                     android:id="@+id/smellInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:textColor="#D4855B" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +97,7 @@
                     android:id="@+id/tasteInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:textColor="#D4855B" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -116,6 +120,7 @@
                     android:id="@+id/combinationInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:textColor="#D4855B" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -138,6 +143,7 @@
                     android:id="@+id/notesInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:textColor="#D4855B" />
 
             </com.google.android.material.textfield.TextInputLayout>

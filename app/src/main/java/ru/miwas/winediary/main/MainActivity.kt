@@ -9,7 +9,6 @@ import ru.miwas.winediary.main.di.module.MainActivityModule
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import javax.inject.Inject
 
-
 class MainActivity : AppCompatActivity() {
 
     @Inject
@@ -25,11 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         DaggerMainComponent
             .builder()
-            .mainActivityModule(
-                MainActivityModule(
-                    this
-                )
-            )
+            .mainActivityModule(MainActivityModule(this))
             .appComponent(DaggerDI.appComponent)
             .build()
             .inject(this)

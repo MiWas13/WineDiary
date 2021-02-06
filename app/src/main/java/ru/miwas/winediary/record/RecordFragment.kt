@@ -44,6 +44,7 @@ class RecordFragment(
         savedInstanceState: Bundle?
     ): View? {
         prepareViewModel()
+        activity?.window?.statusBarColor = resources.getColor(R.color.orangeVeryLight, null)
         return inflater.inflate(R.layout.record_fragment, container, false)
     }
 
@@ -76,7 +77,9 @@ class RecordFragment(
 
     private fun configureView(wine: Wine) {
         with(wine) {
-            winePhoto.setImageBitmap(BitmapFactory.decodeFile(File(imagePath).absolutePath))
+            if (imagePath.isNotEmpty()) {
+                winePhoto.setImageBitmap(BitmapFactory.decodeFile(File(imagePath).absolutePath))
+            }
             wineNameValue.text = name
             countryValue.text = country
             yearValue.text = year.toString()

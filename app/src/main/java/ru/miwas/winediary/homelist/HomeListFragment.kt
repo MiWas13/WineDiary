@@ -52,8 +52,10 @@ class HomeListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         prepareViewModel()
+        activity?.window?.statusBarColor = resources.getColor(R.color.dirtyWhite, null)
         return inflater.inflate(R.layout.home_list_fragment, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -36,16 +36,24 @@ class HomeListAdapter(
     override fun getItemCount() = homeListItems.size
 
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {
-        holder.nameView.text = homeListItems[position].name
-        holder.totalRatingBar.rating = homeListItems[position].rateTotal.toFloat()
-        homeListItems[position].imagePath?.let {
-            holder.imageView.setImageBitmap(BitmapFactory.decodeFile(File(it).absolutePath))
-        }
-        holder.itemView.setOnClickListener { clickListener.onClick(homeListItems[position].id) }
+        val currentItem = homeListItems[position]
+        holder.nameView.text = currentItem.name
+        holder.totalRatingBar.rating = currentItem.rateTotal.toFloat()
+        configureImage(currentItem, holder)
+        holder.itemView.setOnClickListener { clickListener.onClick(currentItem.id) }
     }
 
     fun setItems(homeListItems: MutableList<WineItem>) {
         this.homeListItems = homeListItems
         notifyDataSetChanged()
+    }
+
+    private fun configureImage(currentItem: WineItem, holder: HomeListViewHolder) {
+        val imagePath = currentItem.imagePath
+        if (!imagePath.isNullOrEmpty()) {
+            imagePath.let {
+                holder.imageView.setImageBitmap(BitmapFactory.decodeFile(File(it).absolutePath))
+            }
+        }
     }
 }
