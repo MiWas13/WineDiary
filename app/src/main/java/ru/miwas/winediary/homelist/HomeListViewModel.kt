@@ -9,6 +9,7 @@ interface HomeListViewModel : BaseViewModel<HomeListViewModel.Event> {
     val wineItems: MutableLiveData<MutableList<WineItem>>
 
     sealed class Event {
+        object BackClicked : Event()
         object AddClicked : Event()
         class WineClicked(val id: Long) : Event()
     }

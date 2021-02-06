@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.create_record_step_third_fragment.*
+import kotlinx.android.synthetic.main.create_record_step_third_fragment.previousButton
 import ru.miwas.winediary.R
 import ru.miwas.winediary.createrecord.CreateRecordViewModel
+import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.PreviousStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.ConfirmClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.OnRatingBarClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.RatingBarType.Smell
@@ -37,6 +39,11 @@ class ThirdStepFragment(
     }
 
     private fun prepareView() {
+
+        previousButton.setOnClickListener {
+            viewModel.dispatchEvent(PreviousStepClicked)
+        }
+
         confirmButton.setOnClickListener {
             viewModel.dispatchEvent(ConfirmClicked)
         }

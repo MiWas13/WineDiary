@@ -10,6 +10,7 @@ import ru.miwas.winediary.database.model.WineEntity
 import ru.miwas.winediary.homelist.model.WineItem
 import ru.miwas.winediary.homelist.navigation.HomeListNavigator
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.AddClicked
+import ru.miwas.winediary.homelist.HomeListViewModel.Event.BackClicked
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.WineClicked
 import ru.miwas.winediary.utils.Constants.EMPTY_INT
 import ru.miwas.winediary.utils.Constants.EMPTY_STRING
@@ -30,6 +31,9 @@ class HomeListViewModelImpl @Inject constructor(
 
     override fun dispatchEvent(event: HomeListViewModel.Event) {
         when (event) {
+            BackClicked -> {
+                homeListNavigator.clear()
+            }
             AddClicked -> {
                 appMetricaSender.sendEvent(EVENT_CLICK_ADD)
                 homeListNavigator.startAdding()

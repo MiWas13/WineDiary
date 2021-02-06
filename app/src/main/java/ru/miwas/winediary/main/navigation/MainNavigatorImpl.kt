@@ -10,11 +10,11 @@ class MainNavigatorImpl @Inject constructor(
 ) : MainNavigator {
 
     override fun openStubMainScreen() {
-        fragmentNavigationHelper.replaceFragmentWithBackStack(StubMainFragment())
+        fragmentNavigationHelper.replaceFragmentWithoutBackStack(StubMainFragment())
     }
 
     override fun openHomeListScreen() {
-        fragmentNavigationHelper.replaceFragmentWithBackStack(HomeListFragment())
+        fragmentNavigationHelper.replaceFragmentWithoutBackStack(HomeListFragment())
     }
 
     override fun clear() {

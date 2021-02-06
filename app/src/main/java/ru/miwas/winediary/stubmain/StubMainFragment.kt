@@ -39,6 +39,9 @@ class StubMainFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         prepareViewModel()
+        addBackPressedCallback {
+            activity?.finish()
+        }
         return inflater.inflate(R.layout.stub_main_fragment, container, false)
     }
 

@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.create_record_step_second_fragment.nextBut
 import ru.miwas.winediary.R
 import ru.miwas.winediary.createrecord.CreateRecordViewModel
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.NextStepClicked
+import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.PreviousStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.GrapeVarieties
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.SmellDescription
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.TasteDescription
@@ -42,6 +43,11 @@ class SecondStepFragment(
     }
 
     private fun prepareView() {
+
+        previousButton.setOnClickListener {
+            viewModel.dispatchEvent(PreviousStepClicked)
+        }
+
         nextButton.setOnClickListener {
             viewModel.dispatchEvent(NextStepClicked)
         }

@@ -7,6 +7,10 @@ class RecordNavigatorImpl @Inject constructor(
     private val fragmentNavigationHelper: FragmentNavigationHelper
 ) : RecordNavigator {
 
+    override fun back() {
+        fragmentNavigationHelper.removeLastFragment()
+    }
+
     override fun clear() {
         fragmentNavigationHelper.clearHelper()
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.miwas.winediary.appmetrica.AppMetricaSender
 import ru.miwas.winediary.createrecord.navigation.CreateRecordNavigator
+import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.PreviousStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.NextStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.ConfirmClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.ToMainClicked
@@ -68,6 +69,10 @@ class CreateRecordViewModelImpl @Inject constructor(
 
     override fun dispatchEvent(event: CreateRecordViewModel.Event) {
         when (event) {
+            PreviousStepClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_PREVIOUS)
+                backToPreviousStep()
+            }
             NextStepClicked -> {
                 appMetricaSender.sendEvent(EVENT_CLICK_NEXT)
                 checkValuesAndUpdate(false)
@@ -135,6 +140,10 @@ class CreateRecordViewModelImpl @Inject constructor(
         }
     }
 
+    private fun backToPreviousStep() {
+        viewPagerActivePage.value = viewPagerActivePage.value?.minus(1)
+    }
+
     private fun editTextChanged(editTextType: EditTextType) {
         when (editTextType) {
             is Name -> name = editTextType.text ?: EMPTY_STRING
@@ -185,6 +194,7 @@ class CreateRecordViewModelImpl @Inject constructor(
 
     companion object {
         const val EVENT_SHOW_CREATE_RECORD = "Create_record_screen_show"
+        const val EVENT_CLICK_PREVIOUS = "Previous_button_record_screen_click"
         const val EVENT_CLICK_NEXT = "Next_button_record_screen_click"
         const val EVENT_CLICK_CONFIRM = "Confirm_button_record_screen_click"
         const val EVENT_CLICK_GO_TO_MAIN = "Go_to_main_button_record_screen_click"

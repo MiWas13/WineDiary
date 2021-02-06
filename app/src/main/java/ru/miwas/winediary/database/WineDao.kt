@@ -31,7 +31,7 @@ interface WineDao {
     @Update
     fun update(wine: WineEntity)
 
-    @Delete
-    fun delete(wine: WineEntity)
+    @Query("DELETE FROM $SPACE$WINE_TABLE_NAME WHERE id = :id")
+    suspend fun delete(id: Long)
 
 }

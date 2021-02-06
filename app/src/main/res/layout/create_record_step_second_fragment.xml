@@ -152,20 +152,42 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/nextButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_margin="8dp"
-        android:background="@drawable/rounded_button_background"
-        android:gravity="center"
-        android:text="@string/create_record_next_button_text"
-        android:textAllCaps="false"
-        android:textColor="@color/defaultWhite"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/previousButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_button_background_secondary"
+            android:gravity="center"
+            android:text="@string/create_record_back_button_text"
+            android:textAllCaps="false"
+            android:textColor="@color/defaultBlack"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_button_background"
+            android:gravity="center"
+            android:text="@string/create_record_next_button_text"
+            android:textAllCaps="false"
+            android:textColor="@color/defaultWhite"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

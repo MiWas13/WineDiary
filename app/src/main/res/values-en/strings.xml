@@ -4,6 +4,7 @@
 
     <string name="stub_main_text">Here will be the list of your favourite wine. \nLet\'s add something!</string>
     <string name="create_record_next_button_text">Next</string>
+    <string name="create_record_back_button_text">Back</string>
     <string name="create_record_ready_button_text">Ready</string>
     <string name="create_record_wine_name">Wine name</string>
     <string name="create_record_country_creator">Region</string>
@@ -26,4 +27,8 @@
 
     <string name="create_record_wine_added">Wine added to your collection!</string>
     <string name="create_record_to_main">Go to main</string>
+
+    <string name="delete_record_confirmation_dialog">Are you sure you want to delete this wine?</string>
+    <string name="delete_record_confirmation_positive">Yes</string>
+    <string name="delete_record_confirmation_negative">No</string>
 </resources>

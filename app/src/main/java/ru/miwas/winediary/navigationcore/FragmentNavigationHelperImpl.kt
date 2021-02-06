@@ -15,6 +15,16 @@ class FragmentNavigationHelperImpl : FragmentNavigationHelper {
         this.containerId = containerId
     }
 
+    override fun replaceFragmentWithoutBackStack(fragment: Fragment, stackName: String?) {
+        fragmentManager?.apply {
+            containerId?.let {
+                beginTransaction()
+                    .replace(it, fragment, stackName)
+                    .commit()
+            }
+        }
+    }
+
     override fun replaceFragmentWithBackStack(fragment: Fragment, stackName: String?) {
         fragmentManager?.apply {
             containerId?.let {

@@ -3,12 +3,16 @@ package ru.miwas.winediary.record
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ru.miwas.winediary.appmetrica.AppMetricaSender
-import ru.miwas.winediary.base.App
 import ru.miwas.winediary.database.AppDatabase
 import ru.miwas.winediary.database.model.WineEntity
 import ru.miwas.winediary.record.model.Wine
+import ru.miwas.winediary.record.RecordViewModel.Event.BackButtonClicked
+import ru.miwas.winediary.record.RecordViewModel.Event.DeleteButtonClicked
+import ru.miwas.winediary.record.RecordViewModel.Event.DeleteConfirmationButtonClicked
 import ru.miwas.winediary.record.navigation.RecordNavigator
 import ru.miwas.winediary.utils.Constants.EMPTY_FLOAT
 import ru.miwas.winediary.utils.Constants.EMPTY_INT
@@ -22,6 +26,7 @@ class RecordViewModelImpl @Inject constructor(
 ) : RecordViewModel, ViewModel() {
 
     override val wine: MutableLiveData<Wine> = MutableLiveData()
+    override val deleteConfirmationDialogState: MutableLiveData<Boolean> = MutableLiveData()
 
     private var wineId: Long = 0
 
@@ -32,7 +37,14 @@ class RecordViewModelImpl @Inject constructor(
         }
     }
 
-    override fun dispatchEvent(event: RecordViewModel.Event) {}
+    override fun dispatchEvent(event: RecordViewModel.Event) {
+        when (event) {
+            BackButtonClicked -> recordNavigator.back()
+            DeleteButtonClicked -> showDeleteConfirmationDialog()
+            DeleteConfirmationButtonClicked -> deleteItem()
+        }
+
+    }
 
     override fun finishProcesses() {
         recordNavigator.clear()
@@ -57,6 +69,20 @@ class RecordViewModelImpl @Inject constructor(
                 it.rateTaste ?: EMPTY_INT,
                 it.rateTotal ?: EMPTY_INT
             )
+        }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        deleteConfirmationDialogState.value = true
+    }
+
+    private fun deleteItem() {
+        runBlocking {
+            val deleteDeferred = async {
+                database.wineDao().delete(wineId)
+            }
+            deleteDeferred.await()
+            recordNavigator.back()
         }
     }
 

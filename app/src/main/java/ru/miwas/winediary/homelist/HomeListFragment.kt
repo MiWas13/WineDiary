@@ -53,6 +53,9 @@ class HomeListFragment : BaseFragment() {
     ): View? {
         prepareViewModel()
         activity?.window?.statusBarColor = resources.getColor(R.color.dirtyWhite, null)
+        addBackPressedCallback {
+            activity?.finish()
+        }
         return inflater.inflate(R.layout.home_list_fragment, container, false)
     }
 

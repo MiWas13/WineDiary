@@ -1,6 +1,9 @@
 package ru.miwas.winediary.record
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface.BUTTON_NEGATIVE
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +18,9 @@ import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.record.di.component.DaggerRecordComponent
 import ru.miwas.winediary.record.di.module.RecordFragmentModule
 import ru.miwas.winediary.record.model.Wine
+import ru.miwas.winediary.record.RecordViewModel.Event.BackButtonClicked
+import ru.miwas.winediary.record.RecordViewModel.Event.DeleteButtonClicked
+import ru.miwas.winediary.record.RecordViewModel.Event.DeleteConfirmationButtonClicked
 import java.io.File
 import javax.inject.Inject
 
@@ -69,10 +75,24 @@ class RecordFragment(
                 configureView(it)
             }
         )
+
+        viewModel.deleteConfirmationDialogState.observe(
+            viewLifecycleOwner,
+            Observer {
+                showDeleteConfirmationDialog()
+            }
+        )
     }
 
     override fun prepareView() {
 
+        backButton.setOnClickListener {
+            viewModel.dispatchEvent(BackButtonClicked)
+        }
+
+        deleteButton.setOnClickListener {
+            viewModel.dispatchEvent(DeleteButtonClicked)
+        }
     }
 
     private fun configureView(wine: Wine) {
@@ -81,6 +101,7 @@ class RecordFragment(
                 configureImage(imagePath)
             }
             wineNameValue.text = name
+            wineNameToolbar.text = name
             countryValue.text = country
             yearValue.text = year.toString()
             alcoholPercentageValue.text = alcoholPercentage.toString()
@@ -104,5 +125,25 @@ class RecordFragment(
             .load(File(imagePath))
             .placeholder(R.drawable.image_placeholder)
             .into(winePhoto)
+    }
+
+    private fun showDeleteConfirmationDialog() {
+
+        val deleteDialog = AlertDialog.Builder(context)
+            .setMessage(resources.getString(R.string.delete_record_confirmation_dialog))
+            .setPositiveButton(resources.getString(R.string.delete_record_confirmation_positive)) { _, _ ->
+                viewModel.dispatchEvent(DeleteConfirmationButtonClicked)
+            }
+            .setNegativeButton(R.string.delete_record_confirmation_negative) { dialog, _ ->
+                dialog.dismiss()
+            }.create()
+
+        deleteDialog.show()
+
+        deleteDialog.getButton(BUTTON_NEGATIVE)
+            .setTextColor(resources.getColor(R.color.darkRed, null))
+
+        deleteDialog.getButton(BUTTON_POSITIVE)
+            .setTextColor(resources.getColor(R.color.darkGrey, null))
     }
 }

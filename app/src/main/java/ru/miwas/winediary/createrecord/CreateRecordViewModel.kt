@@ -14,6 +14,8 @@ interface CreateRecordViewModel : BaseViewModel<CreateRecordViewModel.Event> {
 
         class OnImageSelected(val imageUri: String) : Event()
 
+        object PreviousStepClicked : Event()
+
         object NextStepClicked : Event()
 
         object ConfirmClicked : Event()

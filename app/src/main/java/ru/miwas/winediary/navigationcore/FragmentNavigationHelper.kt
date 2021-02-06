@@ -8,6 +8,8 @@ interface FragmentNavigationHelper {
 
     fun configHelper(fragmentManager: FragmentManager, @IdRes containerId: Int)
 
+    fun replaceFragmentWithoutBackStack(fragment: Fragment, stackName: String? = null)
+
     fun replaceFragmentWithBackStack(fragment: Fragment, stackName: String? = null)
 
     fun goToMain()
