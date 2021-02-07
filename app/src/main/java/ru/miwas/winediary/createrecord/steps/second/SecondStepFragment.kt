@@ -1,14 +1,11 @@
 package ru.miwas.winediary.createrecord.steps.second
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.create_record_step_second_fragment.*
-import kotlinx.android.synthetic.main.create_record_step_second_fragment.nextButton
 import ru.miwas.winediary.R
+import ru.miwas.winediary.core.viewbinding.viewBinding
 import ru.miwas.winediary.createrecord.CreateRecordViewModel
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.NextStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.PreviousStepClicked
@@ -17,17 +14,13 @@ import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.SmellD
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.TasteDescription
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.Combination
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.Notes
+import ru.miwas.winediary.databinding.CreateRecordStepSecondFragmentBinding
 
 class SecondStepFragment(
     private val viewModel: CreateRecordViewModel
-) : Fragment() {
+) : Fragment(R.layout.create_record_step_second_fragment) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.create_record_step_second_fragment, container, false)
-    }
+    private val binding by viewBinding(CreateRecordStepSecondFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,31 +37,31 @@ class SecondStepFragment(
 
     private fun prepareView() {
 
-        previousButton.setOnClickListener {
+        binding.previousButton.setOnClickListener {
             viewModel.dispatchEvent(PreviousStepClicked)
         }
 
-        nextButton.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             viewModel.dispatchEvent(NextStepClicked)
         }
 
-        grapeVarietiesInputEditText.doAfterTextChanged {
+        binding.grapeVarietiesInputEditText.doAfterTextChanged {
             sendEditTextEvent(GrapeVarieties(it?.toString()))
         }
 
-        smellInputEditText.doAfterTextChanged {
+        binding.smellInputEditText.doAfterTextChanged {
             sendEditTextEvent(SmellDescription(it?.toString()))
         }
 
-        tasteInputEditText.doAfterTextChanged {
+        binding.tasteInputEditText.doAfterTextChanged {
             sendEditTextEvent(TasteDescription(it?.toString()))
         }
 
-        combinationInputEditText.doAfterTextChanged {
+        binding.combinationInputEditText.doAfterTextChanged {
             sendEditTextEvent(Combination(it?.toString()))
         }
 
-        notesInputEditText.doAfterTextChanged {
+        binding.notesInputEditText.doAfterTextChanged {
             sendEditTextEvent(Notes(it?.toString()))
         }
     }

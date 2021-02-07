@@ -2,30 +2,31 @@ package ru.miwas.winediary.createrecord
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.create_record_fragment.*
 import ru.miwas.winediary.R
-import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.core.base.BaseFragment
+import ru.miwas.winediary.core.viewbinding.viewBinding
 import ru.miwas.winediary.createrecord.di.component.DaggerCreateRecordComponent
 import ru.miwas.winediary.createrecord.di.module.CreateRecordFragmentModule
 import ru.miwas.winediary.createrecord.steps.first.FirstStepFragment
 import ru.miwas.winediary.createrecord.steps.result.ResultFragment
 import ru.miwas.winediary.createrecord.steps.second.SecondStepFragment
 import ru.miwas.winediary.createrecord.steps.third.ThirdStepFragment
+import ru.miwas.winediary.databinding.CreateRecordFragmentBinding
 import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import javax.inject.Inject
 
-class CreateRecordFragment : BaseFragment() {
+class CreateRecordFragment : BaseFragment(R.layout.create_record_fragment) {
 
     @Inject
     lateinit var fragmentNavigationHelper: FragmentNavigationHelper
 
     @Inject
     lateinit var viewModel: CreateRecordViewModel
+
+    private val binding by viewBinding(CreateRecordFragmentBinding::bind)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,12 +39,9 @@ class CreateRecordFragment : BaseFragment() {
             .inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         prepareViewModel()
-        return inflater.inflate(R.layout.create_record_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +61,7 @@ class CreateRecordFragment : BaseFragment() {
         viewModel.viewPagerActivePage.observe(
             viewLifecycleOwner,
             Observer {
-                stepsViewPager.currentItem = it
+                binding.stepsViewPager.currentItem = it
             }
         )
     }
@@ -82,9 +80,9 @@ class CreateRecordFragment : BaseFragment() {
         activity?.let {
             val adapter = CreateRecordAdapter(it)
             adapter.setSteps(stepsFragments)
-            stepsViewPager.adapter = adapter
-            stepsViewPager.clipToPadding = false
-            stepsViewPager.isUserInputEnabled = false
+            binding.stepsViewPager.adapter = adapter
+            binding.stepsViewPager.clipToPadding = false
+            binding.stepsViewPager.isUserInputEnabled = false
         }
     }
 }

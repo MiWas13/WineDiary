@@ -8,16 +8,14 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.create_record_step_first_fragment.*
 import ru.miwas.winediary.R
+import ru.miwas.winediary.core.viewbinding.viewBinding
 import ru.miwas.winediary.createrecord.CreateRecordViewModel
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.AlcoholPercentage
@@ -29,18 +27,14 @@ import ru.miwas.winediary.createrecord.CreateRecordViewModel.EditTextType.Year
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.NextStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.OnEditTextChanged
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.OnImageClicked
+import ru.miwas.winediary.databinding.CreateRecordStepFirstFragmentBinding
 import ru.miwas.winediary.utils.file.getFilePath
 
 class FirstStepFragment(
     private val viewModel: CreateRecordViewModel
-) : Fragment() {
+) : Fragment(R.layout.create_record_step_first_fragment) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.create_record_step_first_fragment, container, false)
-    }
+    private val binding by viewBinding(CreateRecordStepFirstFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,35 +43,35 @@ class FirstStepFragment(
     }
 
     private fun prepareView() {
-        nextButton.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             viewModel.dispatchEvent(NextStepClicked)
         }
 
-        imagePlaceholder.setOnClickListener {
+        binding.imagePlaceholder.setOnClickListener {
             viewModel.dispatchEvent(OnImageClicked)
         }
 
-        nameInputEditText.doAfterTextChanged {
+        binding.nameInputEditText.doAfterTextChanged {
             sendEditTextEvent(Name(it?.toString()))
         }
 
-        countryInputEditText.doAfterTextChanged {
+        binding.countryInputEditText.doAfterTextChanged {
             sendEditTextEvent(Country(it?.toString()))
         }
 
-        yearInputEditText.doAfterTextChanged {
+        binding.yearInputEditText.doAfterTextChanged {
             sendEditTextEvent(Year(it?.toString()))
         }
 
-        alcoholPercentageInputEditText.doAfterTextChanged {
+        binding.alcoholPercentageInputEditText.doAfterTextChanged {
             sendEditTextEvent(AlcoholPercentage(it?.toString()))
         }
 
-        colorInputEditText.doAfterTextChanged {
+        binding.colorInputEditText.doAfterTextChanged {
             sendEditTextEvent(Color(it?.toString()))
         }
 
-        priceInputEditText.doAfterTextChanged {
+        binding.priceInputEditText.doAfterTextChanged {
             sendEditTextEvent(Price(it?.toString()))
         }
     }
@@ -96,7 +90,7 @@ class FirstStepFragment(
                 )
             }
 
-            imagePlaceholder.setImageURI(data?.data)
+            binding.imagePlaceholder.setImageURI(data?.data)
         }
     }
 

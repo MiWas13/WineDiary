@@ -2,15 +2,13 @@ package ru.miwas.winediary.homelist
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.home_list_fragment.*
-import kotlinx.android.synthetic.main.home_list_fragment.addButton
 import ru.miwas.winediary.R
-import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.core.base.BaseFragment
+import ru.miwas.winediary.core.viewbinding.viewBinding
+import ru.miwas.winediary.databinding.HomeListFragmentBinding
 import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.homelist.model.WineItem
 import ru.miwas.winediary.homelist.HomeListViewModel.Event.AddClicked
@@ -20,13 +18,15 @@ import ru.miwas.winediary.homelist.di.module.HomeListFragmentModule
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import javax.inject.Inject
 
-class HomeListFragment : BaseFragment() {
+class HomeListFragment : BaseFragment(R.layout.home_list_fragment) {
 
     @Inject
     lateinit var fragmentNavigationHelper: FragmentNavigationHelper
 
     @Inject
     lateinit var viewModel: HomeListViewModel
+
+    private val binding by viewBinding(HomeListFragmentBinding::bind)
 
     private val homeItemClickListener: HomeItemClickListener = object : HomeItemClickListener {
         override fun onClick(id: Long) {
@@ -47,21 +47,17 @@ class HomeListFragment : BaseFragment() {
             .inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         prepareViewModel()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         activity?.window?.statusBarColor = resources.getColor(R.color.dirtyWhite, null)
         addBackPressedCallback {
             activity?.finish()
         }
-        return inflater.inflate(R.layout.home_list_fragment, container, false)
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         prepareView()
         observeViewModel()
         viewModel.startProcesses()
@@ -74,11 +70,11 @@ class HomeListFragment : BaseFragment() {
     }
 
     override fun prepareView() {
-        addButton.setOnClickListener {
+        binding.addButton.setOnClickListener {
             viewModel.dispatchEvent(AddClicked)
         }
 
-        homeListRecycler.apply {
+        binding.homeListRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = homeListAdapter
         }

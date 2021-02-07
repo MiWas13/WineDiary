@@ -1,6 +1,6 @@
 package ru.miwas.winediary.homelist.navigation
 
-import ru.miwas.winediary.base.BaseNavigator
+import ru.miwas.winediary.core.base.BaseNavigator
 
 interface HomeListNavigator : BaseNavigator {
 

@@ -2,12 +2,11 @@ package ru.miwas.winediary.stubmain
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.stub_main_fragment.addButton
 import ru.miwas.winediary.R
-import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.core.base.BaseFragment
+import ru.miwas.winediary.core.viewbinding.viewBinding
+import ru.miwas.winediary.databinding.StubMainFragmentBinding
 import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.stubmain.StubMainViewModel.Event.AddClicked
@@ -15,13 +14,15 @@ import ru.miwas.winediary.stubmain.di.component.DaggerStubMainComponent
 import ru.miwas.winediary.stubmain.di.module.StubMainFragmentModule
 import javax.inject.Inject
 
-class StubMainFragment : BaseFragment() {
+class StubMainFragment : BaseFragment(R.layout.stub_main_fragment) {
 
     @Inject
     lateinit var fragmentNavigationHelper: FragmentNavigationHelper
 
     @Inject
     lateinit var viewModel: StubMainViewModel
+
+    private val binding by viewBinding(StubMainFragmentBinding::bind)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,19 +35,16 @@ class StubMainFragment : BaseFragment() {
             .inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         prepareViewModel()
-        addBackPressedCallback {
-            activity?.finish()
-        }
-        return inflater.inflate(R.layout.stub_main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        addBackPressedCallback {
+            activity?.finish()
+        }
         prepareView()
         observeViewModel()
         viewModel.startProcesses()
@@ -63,7 +61,7 @@ class StubMainFragment : BaseFragment() {
     }
 
     override fun prepareView() {
-        addButton.setOnClickListener {
+        binding.addButton.setOnClickListener {
             viewModel.dispatchEvent(AddClicked)
         }
     }

@@ -1,13 +1,10 @@
 package ru.miwas.winediary.createrecord.steps.third
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.create_record_step_third_fragment.*
-import kotlinx.android.synthetic.main.create_record_step_third_fragment.previousButton
 import ru.miwas.winediary.R
+import ru.miwas.winediary.core.viewbinding.viewBinding
 import ru.miwas.winediary.createrecord.CreateRecordViewModel
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.PreviousStepClicked
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.ConfirmClicked
@@ -15,17 +12,13 @@ import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.OnRatingBarCl
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.RatingBarType.Smell
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.RatingBarType.Taste
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.RatingBarType.Total
+import ru.miwas.winediary.databinding.CreateRecordStepThirdFragmentBinding
 
 class ThirdStepFragment(
     private val viewModel: CreateRecordViewModel
-) : Fragment() {
+) : Fragment(R.layout.create_record_step_third_fragment) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.create_record_step_third_fragment, container, false)
-    }
+    private val binding by viewBinding(CreateRecordStepThirdFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,23 +33,23 @@ class ThirdStepFragment(
 
     private fun prepareView() {
 
-        previousButton.setOnClickListener {
+        binding.previousButton.setOnClickListener {
             viewModel.dispatchEvent(PreviousStepClicked)
         }
 
-        confirmButton.setOnClickListener {
+        binding.confirmButton.setOnClickListener {
             viewModel.dispatchEvent(ConfirmClicked)
         }
 
-        smellRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
+        binding.smellRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
             viewModel.dispatchEvent(OnRatingBarClicked(Smell(rating)))
         }
 
-        tasteRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
+        binding.tasteRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
             viewModel.dispatchEvent(OnRatingBarClicked(Taste(rating)))
         }
 
-        totalRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
+        binding.totalRatingBar.setOnRatingBarChangeListener { _, rating, _ ->
             viewModel.dispatchEvent(OnRatingBarClicked(Total(rating)))
         }
     }

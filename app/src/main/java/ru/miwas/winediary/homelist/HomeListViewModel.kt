@@ -1,10 +1,11 @@
 package ru.miwas.winediary.homelist
 
 import androidx.lifecycle.MutableLiveData
-import ru.miwas.winediary.base.BaseViewModel
+import ru.miwas.winediary.core.base.BaseViewModel
 import ru.miwas.winediary.homelist.model.WineItem
 
-interface HomeListViewModel : BaseViewModel<HomeListViewModel.Event> {
+interface HomeListViewModel :
+    BaseViewModel<HomeListViewModel.Event> {
 
     val wineItems: MutableLiveData<MutableList<WineItem>>
 

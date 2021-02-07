@@ -1,8 +1,9 @@
 package ru.miwas.winediary.stubmain
 
-import ru.miwas.winediary.base.BaseViewModel
+import ru.miwas.winediary.core.base.BaseViewModel
 
-interface StubMainViewModel: BaseViewModel<StubMainViewModel.Event> {
+interface StubMainViewModel:
+    BaseViewModel<StubMainViewModel.Event> {
 
     sealed class Event {
         object AddClicked : Event()

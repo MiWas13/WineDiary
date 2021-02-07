@@ -1,9 +1,10 @@
 package ru.miwas.winediary.createrecord
 
 import androidx.lifecycle.MutableLiveData
-import ru.miwas.winediary.base.BaseViewModel
+import ru.miwas.winediary.core.base.BaseViewModel
 
-interface CreateRecordViewModel : BaseViewModel<CreateRecordViewModel.Event> {
+interface CreateRecordViewModel :
+    BaseViewModel<CreateRecordViewModel.Event> {
 
     val viewPagerActivePage: MutableLiveData<Int>
     val choosePhoto: MutableLiveData<Boolean>

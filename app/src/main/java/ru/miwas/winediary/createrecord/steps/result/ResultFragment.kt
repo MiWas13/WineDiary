@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.create_record_result_fragment.*
 import ru.miwas.winediary.R
+import ru.miwas.winediary.core.viewbinding.viewBinding
 import ru.miwas.winediary.createrecord.CreateRecordViewModel
 import ru.miwas.winediary.createrecord.CreateRecordViewModel.Event.ToMainClicked
+import ru.miwas.winediary.databinding.CreateRecordResultFragmentBinding
 
 class ResultFragment(
     private val viewModel: CreateRecordViewModel
-) : Fragment() {
+) : Fragment(R.layout.create_record_result_fragment) {
+
+    private val binding by viewBinding(CreateRecordResultFragmentBinding::bind)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +30,7 @@ class ResultFragment(
     }
 
     private fun prepareView() {
-        toMainButton.setOnClickListener {
+        binding.toMainButton.setOnClickListener {
             viewModel.dispatchEvent(ToMainClicked)
         }
     }

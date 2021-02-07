@@ -1,6 +1,6 @@
 package ru.miwas.winediary.record.navigation
 
-import ru.miwas.winediary.base.BaseNavigator
+import ru.miwas.winediary.core.base.BaseNavigator
 
 interface RecordNavigator : BaseNavigator {
 

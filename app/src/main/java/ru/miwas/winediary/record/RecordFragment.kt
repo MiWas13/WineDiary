@@ -5,14 +5,13 @@ import android.content.Context
 import android.content.DialogInterface.BUTTON_NEGATIVE
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.record_fragment.*
 import ru.miwas.winediary.R
-import ru.miwas.winediary.base.BaseFragment
+import ru.miwas.winediary.core.base.BaseFragment
+import ru.miwas.winediary.core.viewbinding.viewBinding
+import ru.miwas.winediary.databinding.RecordFragmentBinding
 import ru.miwas.winediary.di.DaggerDI
 import ru.miwas.winediary.navigationcore.FragmentNavigationHelper
 import ru.miwas.winediary.record.di.component.DaggerRecordComponent
@@ -26,13 +25,15 @@ import javax.inject.Inject
 
 class RecordFragment(
     private val id: Long
-) : BaseFragment() {
+) : BaseFragment(R.layout.record_fragment) {
 
     @Inject
     lateinit var viewModel: RecordViewModel
 
     @Inject
     lateinit var fragmentNavigationHelper: FragmentNavigationHelper
+
+    private val binding by viewBinding(RecordFragmentBinding::bind)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,17 +46,14 @@ class RecordFragment(
             .inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         prepareViewModel()
-        activity?.window?.statusBarColor = resources.getColor(R.color.orangeVeryLight, null)
-        return inflater.inflate(R.layout.record_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.window?.statusBarColor = resources.getColor(R.color.orangeVeryLight, null)
         prepareView()
         observeViewModel()
         viewModel.setWineId(id)
@@ -86,11 +84,11 @@ class RecordFragment(
 
     override fun prepareView() {
 
-        backButton.setOnClickListener {
+        binding.backButton.setOnClickListener {
             viewModel.dispatchEvent(BackButtonClicked)
         }
 
-        deleteButton.setOnClickListener {
+        binding.deleteButton.setOnClickListener {
             viewModel.dispatchEvent(DeleteButtonClicked)
         }
     }
@@ -100,21 +98,21 @@ class RecordFragment(
             if (imagePath.isNotEmpty()) {
                 configureImage(imagePath)
             }
-            wineNameValue.text = name
-            wineNameToolbar.text = name
-            countryValue.text = country
-            yearValue.text = year.toString()
-            alcoholPercentageValue.text = alcoholPercentage.toString()
-            colorValue.text = color
-            priceValue.text = price.toString()
-            grapeVarietiesValue.text = grapeVariety
-            smellValue.text = smell
-            tasteValue.text = taste
-            combinationValue.text = combination
-            notesValue.text = notes
-            smellRatingBar.rating = rateSmell.toFloat()
-            tasteRatingBar.rating = rateTaste.toFloat()
-            totalRatingBar.rating = rateTotal.toFloat()
+            binding.wineNameValue.text = name
+            binding.wineNameToolbar.text = name
+            binding.countryValue.text = country
+            binding.yearValue.text = year.toString()
+            binding.alcoholPercentageValue.text = alcoholPercentage.toString()
+            binding.colorValue.text = color
+            binding.priceValue.text = price.toString()
+            binding.grapeVarietiesValue.text = grapeVariety
+            binding.smellValue.text = smell
+            binding.tasteValue.text = taste
+            binding.combinationValue.text = combination
+            binding.notesValue.text = notes
+            binding.smellRatingBar.rating = rateSmell.toFloat()
+            binding.tasteRatingBar.rating = rateTaste.toFloat()
+            binding.totalRatingBar.rating = rateTotal.toFloat()
         }
 
     }
@@ -124,7 +122,7 @@ class RecordFragment(
             .with(this@RecordFragment)
             .load(File(imagePath))
             .placeholder(R.drawable.image_placeholder)
-            .into(winePhoto)
+            .into(binding.winePhoto)
     }
 
     private fun showDeleteConfirmationDialog() {
