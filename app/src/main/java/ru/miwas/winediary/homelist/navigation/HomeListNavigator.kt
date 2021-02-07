@@ -6,5 +6,7 @@ interface HomeListNavigator : BaseNavigator {
 
     fun startAdding()
 
+    fun showStub()
+
     fun openWineRecord(id: Long)
 }

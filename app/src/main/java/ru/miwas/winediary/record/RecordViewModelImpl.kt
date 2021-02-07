@@ -39,9 +39,18 @@ class RecordViewModelImpl @Inject constructor(
 
     override fun dispatchEvent(event: RecordViewModel.Event) {
         when (event) {
-            BackButtonClicked -> recordNavigator.back()
-            DeleteButtonClicked -> showDeleteConfirmationDialog()
-            DeleteConfirmationButtonClicked -> deleteItem()
+            BackButtonClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_BACK)
+                recordNavigator.back()
+            }
+            DeleteButtonClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_DELETE)
+                showDeleteConfirmationDialog()
+            }
+            DeleteConfirmationButtonClicked -> {
+                appMetricaSender.sendEvent(EVENT_CLICK_DELETE_CONFIRMATION)
+                deleteItem()
+            }
         }
 
     }
@@ -92,5 +101,9 @@ class RecordViewModelImpl @Inject constructor(
 
     companion object {
         const val EVENT_SHOW_RECORD = "Record_screen_show"
+        const val EVENT_CLICK_BACK = "Back_button_record_screen_click"
+        const val EVENT_CLICK_DELETE = "Delete_button_record_screen_click"
+        const val EVENT_CLICK_DELETE_CONFIRMATION = "Delete_confirm_button_record_screen_click"
+
     }
 }

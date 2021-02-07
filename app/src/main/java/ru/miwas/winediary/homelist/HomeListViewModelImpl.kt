@@ -51,7 +51,12 @@ class HomeListViewModelImpl @Inject constructor(
 
     private fun fetchWineItemsData() {
         viewModelScope.launch {
-            wineItems.value = database.wineDao().getAllWinesLight().toWineItems()
+            val wineItemsFromDb = database.wineDao().getAllWinesLight().toWineItems()
+            if (wineItemsFromDb.isNotEmpty()) {
+                wineItems.value = wineItemsFromDb
+            } else {
+                homeListNavigator.showStub()
+            }
         }
     }
 
