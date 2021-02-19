@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.doAfterTextChanged
@@ -91,6 +92,7 @@ class FirstStepFragment(
             }
 
             binding.imagePlaceholder.setImageURI(data?.data)
+            binding.imagePlaceholder.scaleType = ImageView.ScaleType.FIT_CENTER
         }
     }
 

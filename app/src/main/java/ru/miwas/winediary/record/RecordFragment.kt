@@ -121,6 +121,7 @@ class RecordFragment(
         Glide
             .with(this@RecordFragment)
             .load(File(imagePath))
+            .fitCenter()
             .placeholder(R.drawable.image_placeholder)
             .into(binding.winePhoto)
     }

@@ -1,33 +1,33 @@
 <resources>
     <string name="app_name">WineDiary</string>
 
-    <string name="stub_main_text">Здесь будет список твоего любимого вина. \nДобавь что-нибудь!</string>
-    <string name="create_record_next_button_text">Далее</string>
-    <string name="create_record_back_button_text">Назад</string>
-    <string name="create_record_ready_button_text">Готово</string>
-    <string name="create_record_wine_name">Название вина</string>
-    <string name="create_record_country_creator">Страна производитель</string>
-    <string name="create_record_year">Год</string>
-    <string name="create_record_alcohol_percentage">% Алкоголя</string>
-    <string name="create_record_color">Цвет</string>
-    <string name="create_record_price">Цена</string>
-    <string name="create_record_grape_varieties">Сорт(а) винограда</string>
-    <string name="create_record_smell">Запах</string>
-    <string name="create_record_taste">Вкус</string>
-    <string name="create_record_combination">Сочетается с</string>
-    <string name="create_record_notes">Дополнительные заметки</string>
-    <string name="create_record_smell_rating">Оценка запаха</string>
-    <string name="create_record_taste_rating">Оценка вкуса</string>
-    <string name="create_record_total_rating">Общая оценка</string>
+    <string name="stub_main_text">Here will be the list of your favourite wine. \nLet\'s add something!</string>
+    <string name="create_record_next_button_text">Next</string>
+    <string name="create_record_back_button_text">Back</string>
+    <string name="create_record_ready_button_text">Ready</string>
+    <string name="create_record_wine_name">Wine name</string>
+    <string name="create_record_country_creator">Region</string>
+    <string name="create_record_year">Year</string>
+    <string name="create_record_alcohol_percentage">Alcohol Percentage</string>
+    <string name="create_record_color">Color</string>
+    <string name="create_record_price">Price</string>
+    <string name="create_record_grape_varieties">Grape Varieties</string>
+    <string name="create_record_smell">Smell</string>
+    <string name="create_record_taste">Taste</string>
+    <string name="create_record_combination">Pairing with food</string>
+    <string name="create_record_notes">Extra note</string>
+    <string name="create_record_smell_rating">Smell rating</string>
+    <string name="create_record_taste_rating">Taste rating</string>
+    <string name="create_record_total_rating">Total rating</string>
 
-    <string name="create_record_step_first">Шаг 1 из 3</string>
-    <string name="create_record_step_second">Шаг 2 из 3</string>
-    <string name="create_record_step_third">Шаг 3 из 3</string>
+    <string name="create_record_step_first">Step 1 of 3</string>
+    <string name="create_record_step_second">Step 2 of 3</string>
+    <string name="create_record_step_third">Step 3 of 3</string>
 
-    <string name="create_record_wine_added">Вино добавлено в вашу коллекцию!</string>
-    <string name="create_record_to_main">На главную</string>
+    <string name="create_record_wine_added">Wine added to your collection!</string>
+    <string name="create_record_to_main">Go to main</string>
 
-    <string name="delete_record_confirmation_dialog">Вы действительно хотите удалить вино?</string>
-    <string name="delete_record_confirmation_positive">Да</string>
-    <string name="delete_record_confirmation_negative">Нет</string>
+    <string name="delete_record_confirmation_dialog">Are you sure you want to delete this wine?</string>
+    <string name="delete_record_confirmation_positive">Yes</string>
+    <string name="delete_record_confirmation_negative">No</string>
 </resources>
