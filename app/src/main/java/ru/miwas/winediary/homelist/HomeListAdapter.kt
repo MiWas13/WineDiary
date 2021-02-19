@@ -60,6 +60,13 @@ class HomeListAdapter(
                         .into(imageView)
                 }
             }
+        } else {
+            with(holder) {
+                Glide
+                    .with(itemView)
+                    .load(R.drawable.image_placeholder)
+                    .into(imageView)
+            }
         }
     }
 }
